@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Places Autocomplete</title>
+  <meta charset="utf-8"/>
+</head>
+<body>
+
+
+
+<!-- include the api script library along with your Google API key -->
+<script src="https://maps.googleapis.com/maps/api/js?key=<YOUR_API_KEY>&libraries=places"></script>
+
+<h1 style="text-align: center;">Place Auto Complete and get Latitudes and langitudes</h1>
+<!-- logic to autocomplete -->
+<script type="text/javascript">
+  google.maps.event.addDomListener(window,'load', initialize);
+  function initialize() {
+
+    var autocomplete = new google.maps.places.Autocomplete(document.getElementById('textautocomplete'));
+
+    google.maps.event.addListener(autocomplete,'place_changed', function () {
+      var place = autocomplete.getPlace();
+    var locations = "<b>Location:</b>"+ place.formatted_address + "<br/>";
+    var lat = place.geometry.location.lat();
+    var long = place.geometry.location.lng();
+
+    locations += "<b>Latitude:</b>" + lat + "<br/>";
+    locations += "<b>Longitude:</b>" + long;
+    document.getElementById('lblresult').innerHTML = locations;
+  });
+    
+  };
+
+</script>
+<div>
+  <div align="center">
+    <span><b>Enter Your Location:</b></span>  <input type="text" id="textautocomplete" placeholder="Enter Address" style="width: 400px;" /><br><br>
+  </div>
+
+  <div style="background-color: black; color:orange; margin-left: 50px;margin-right: 50px;">
+  <label id='lblresult'></label>
+  </div>
+</div>
+</body>
+</html>
